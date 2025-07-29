@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Henry's Portfolio</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Henry Stephen</h1>
+    <p>Beginner Web Developer & Python Enthusiast</p>
+  </header>
+
+  <section>
+    <h2>My Projects</h2>
+    <ul>
+      <li>Simple HTML/CSS Website</li>
+      <li>Python Calculator Script</li>
+      <li>Contact Form with Flask</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Contact Me</h2>
+    <form method="POST" action="/submit">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    {% if success %}
+      <p class="success">Thanks for reaching out!</p>
+    {% endif %}
+  </section>
+</body>
+</html>
