@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>Henry Stephen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-<div class="container">
-    <header style="text-align: center; margin-top: 50px;">
+
+    <header>
         <h1>Henry Stephen</h1>
         <p>Beginner Web Developer & Python Enthusiast</p>
     </header>
 
-    <section style="max-width: 600px; margin: 50px auto;">
+    <section>
         <h2>My Projects</h2>
         <ul>
             <li>Simple HTML/CSS Website</li>
@@ -21,31 +22,29 @@
         </ul>
     </section>
 
-    <section style="max-width: 600px; margin: 50px auto;">
+    <section>
         <h2>Contact Me</h2>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <ul>
                 {% for category, message in messages %}
-                    <li style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</li>
+                    <li class="{{ category }}">{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
         {% endwith %}
 
-<form id="contact-form" action="/send" method="post">
-  <input type="text" name="name" placeholder="Your Name" required><br>
-  <input type="email" name="email" placeholder="Your Email" required><br>
-  <textarea name="message" placeholder="Your Message" required></textarea><br>
+        <form id="contact-form" action="/send" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
 
-  <!-- reCAPTCHA v2 checkbox -->
-  <div class="g-recaptcha" data-sitekey="6Lc_9pIrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ"></div><br>
+            <div class="g-recaptcha" data-sitekey="6Lc_9pIrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ"></div><br>
 
-  <button type="submit">Send</button>
-</form>
-
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <button type="submit">Send</button>
+        </form>
+    </section>
 
 </body>
 </html>
