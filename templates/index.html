@@ -2,41 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Henry Stephen - Portfolio</title>
+    <title>Henry Stephen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Henry Stephen</h1>
-    <p>Beginner Web Developer & Python Enthusiast</p>
+    <div class="container">
+        <header style="text-align: center; margin-top: 50px;">
+            <h1>Henry Stephen</h1>
+            <p>Beginner Web Developer & Python Enthusiast</p>
+        </header>
 
-    <section>
-        <h2>My Projects</h2>
-        <ul>
-            <li>Simple HTML/CSS Website</li>
-            <li>Python Calculator Script</li>
-            <li>Contact Form with Flask</li>
-        </ul>
-    </section>
+        <section style="max-width: 600px; margin: 50px auto;">
+            <h2>My Projects</h2>
+            <ul>
+                <li>Simple HTML/CSS Website</li>
+                <li>Python Calculator Script</li>
+                <li>Contact Form with Flask</li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Contact Me</h2>
+        <section style="max-width: 600px; margin: 50px auto;">
+            <h2>Contact Me</h2>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
                 <ul>
-                {% for category, message in messages %}
+                  {% for category, message in messages %}
                     <li style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</li>
-                {% endfor %}
+                  {% endfor %}
                 </ul>
-            {% endif %}
-        {% endwith %}
+              {% endif %}
+            {% endwith %}
 
-        <form action="/send" method="post">
-            <input type="text" name="name" placeholder="Your Name"><br>
-            <input type="email" name="email" placeholder="Your Email"><br>
-            <textarea name="message" placeholder="Your Message"></textarea><br>
-            <button type="submit">Send</button>
-        </form>
-    </section>
+            <form action="/send" method="post">
+                <input type="text" name="name" placeholder="Your Name" required><br>
+                <input type="email" name="email" placeholder="Your Email" required><br>
+                <textarea name="message" placeholder="Your Message" required></textarea><br>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </div>
 </body>
 </html>
