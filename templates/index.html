@@ -34,18 +34,18 @@
         {% endif %}
         {% endwith %}
 
-        <form action="/send" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required><br>
-            <input type="email" name="email" placeholder="Your Email" required><br>
-            <textarea name="message" placeholder="Your Message" required></textarea><br>
+<form id="contact-form" action="/send" method="post">
+  <input type="text" name="name" placeholder="Your Name" required><br>
+  <input type="email" name="email" placeholder="Your Email" required><br>
+  <textarea name="message" placeholder="Your Message" required></textarea><br>
 
-            <div class="g-recaptcha" data-sitekey="6Lc_9pIrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ"></div><br>
+  <!-- reCAPTCHA v2 checkbox -->
+  <div class="g-recaptcha" data-sitekey="6Lc_9pIrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ"></div><br>
 
-            <button type="submit">Send</button>
-        </form>
-    </section>
-</div>
+  <button type="submit">Send</button>
+</form>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </body>
 </html>
