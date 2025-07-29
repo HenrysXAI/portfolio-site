@@ -8,7 +8,7 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
-# Mail configuration
+# Mail setup
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -24,48 +24,46 @@ def index():
 
 @app.route('/send', methods=['POST'])
 def send():
+    # reCAPTCHA v2 verification
+    recaptcha_response = request.form.get('g-recaptcha-response')
+    recaptcha_secret = '6Lc_9pIrAAAAA1cdVfW6_E7kTFNJy-4b2g32MM1'
+    recaptcha_verify = requests.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        data={'secret': recaptcha_secret, 'response': recaptcha_response}
+    ).json()
+
+    if not recaptcha_verify.get('success'):
+        flash('reCAPTCHA verification failed.', 'error')
+        return redirect('/')
+
     name = escape(request.form['name'].strip())
     email = escape(request.form['email'].strip())
     message = escape(request.form['message'].strip())
-    recaptcha_response = request.form.get('g-recaptcha-response')
 
-    # Validate non-empty
+    # Basic validation
     if not name or not email or not message:
         flash('All fields are required.', 'error')
         return redirect('/')
 
-    # Validate email format
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         flash('Invalid email address.', 'error')
         return redirect('/')
 
-    # Length validation
     if len(name) > 100 or len(email) > 100 or len(message) > 1000:
         flash('Input is too long.', 'error')
         return redirect('/')
 
-    # Verify reCAPTCHA
-    secret_key = "6Lc_9pIrAAAAA1cdVFw6_E7kTFNJy-4b2g32MM1"
-    verify_url = "https://www.google.com/recaptcha/api/siteverify"
-    response = requests.post(verify_url, data={
-        'secret': secret_key,
-        'response': recaptcha_response
-    })
-    result = response.json()
-
-    if not result.get("success"):
-        flash('reCAPTCHA verification failed. Try again.', 'error')
-        return redirect('/')
-
     try:
-        msg = Message(subject=f"New message from {name}",
-                      sender=app.config['MAIL_USERNAME'],
-                      recipients=[app.config['MAIL_USERNAME']])
-        msg.body = f"From: {name} <{email}>\n\n{message}"
+        msg = Message(
+            subject=f"New message from {name}",
+            sender=app.config['MAIL_USERNAME'],
+            recipients=[app.config['MAIL_USERNAME']],
+            body=f"From: {name} <{email}>\n\n{message}"
+        )
         mail.send(msg)
         flash('Message sent successfully!', 'success')
     except Exception as e:
-        print(f"Error sending email: {e}")
+        print(f"Error: {e}")
         flash('Failed to send message.', 'error')
 
     return redirect('/')
