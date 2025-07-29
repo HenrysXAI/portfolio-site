@@ -35,7 +35,7 @@ def send():
         return redirect('/')
 
     verify_url = 'https://www.google.com/recaptcha/api/siteverify'
-    secret_key = '6Lc_9pIrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ'  # your secret key
+    secret_key = '6Lc_9plrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ'  # your secret key
     try:
         res = requests.post(verify_url, data={
             'secret': secret_key,
