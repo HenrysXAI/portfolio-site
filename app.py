@@ -27,29 +27,26 @@ def send():
     name = escape(request.form['name'].strip())
     email = escape(request.form['email'].strip())
     message = escape(request.form['message'].strip())
-    recaptcha_response = request.form.get('g-recaptcha-response')
 
-    # reCAPTCHA verification
+    # reCAPTCHA validation
+    recaptcha_response = request.form.get('g-recaptcha-response')
     if not recaptcha_response:
-        flash('reCAPTCHA is required.', 'error')
+        flash('reCAPTCHA not completed.', 'error')
         return redirect('/')
 
     verify_url = 'https://www.google.com/recaptcha/api/siteverify'
-    secret_key = '6Lc_9plrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ'  # your secret key
-    try:
-        res = requests.post(verify_url, data={
-            'secret': secret_key,
-            'response': recaptcha_response
-        })
-        result = res.json()
-        if not result.get('success'):
-            flash('reCAPTCHA failed. Try again.', 'error')
-            return redirect('/')
-    except Exception as e:
-        print(f'reCAPTCHA error: {e}')
-        flash('reCAPTCHA error.', 'error')
+    payload = {
+        'secret': '6Lc_9pIrAAAAAI1cdVfW6_E7kTFNJy-4b2g32MM1',
+        'response': recaptcha_response
+    }
+    response = requests.post(verify_url, data=payload)
+    result = response.json()
+
+    if not result.get('success'):
+        flash('reCAPTCHA failed. Try again.', 'error')
         return redirect('/')
 
+    # Continue with the rest of your validation + email sending
     if not name or not email or not message:
         flash('All fields are required.', 'error')
         return redirect('/')
