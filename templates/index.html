@@ -25,22 +25,28 @@
             <h2>Contact Me</h2>
 
             {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                <ul>
-                  {% for category, message in messages %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
                     <li style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
             {% endwith %}
 
-            <form action="/send" method="post">
+            <form id="contact-form" action="/send" method="post">
                 <input type="text" name="name" placeholder="Your Name" required><br>
                 <input type="email" name="email" placeholder="Your Email" required><br>
                 <textarea name="message" placeholder="Your Message" required></textarea><br>
+
+                <!-- reCAPTCHA widget -->
+                <div class="g-recaptcha" data-sitekey="6Lc_9pIrAAAAAEYLmLCMCTt-XkGJ_d1ZnJeBAVOJ"></div><br>
+
                 <button type="submit">Send</button>
             </form>
         </section>
     </div>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
