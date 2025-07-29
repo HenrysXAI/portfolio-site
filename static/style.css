@@ -120,3 +120,15 @@ form button:hover {
 html {
   scroll-behavior: smooth;
 }
+.navbar {
+  margin-bottom: -20px;
+  padding-top: 10px;
+}
+
+.navbar ul {
+  justify-content: center;
+  gap: 30px;
+}
+section {
+  scroll-margin-top: 80px;
+}
