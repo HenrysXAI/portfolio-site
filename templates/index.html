@@ -8,12 +8,23 @@
 </head>
 <body>
 
-    <header>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="about">
         <h1>Henry Stephen</h1>
         <p>Beginner Web Developer & Python Enthusiast</p>
     </header>
 
-    <section>
+    <!-- Projects Section -->
+    <section id="projects">
         <h2>My Projects</h2>
         <ul>
             <li>Simple HTML/CSS Website</li>
@@ -22,7 +33,8 @@
         </ul>
     </section>
 
-    <section>
+    <!-- Contact Section -->
+    <section id="contact">
         <h2>Contact Me</h2>
 
         {% with messages = get_flashed_messages(with_categories=true) %}

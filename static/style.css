@@ -78,3 +78,45 @@ form button:hover {
   color: #ff4d4d;
   font-weight: bold;
 }
+
+/* Navigation Bar */
+.navbar {
+  background-color: #111;
+  border-bottom: 1px solid #222;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 8px rgba(0, 255, 204, 0.15);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  display: inline;
+}
+
+.navbar a {
+  color: #00ffcc;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2em;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 5px #00ffcc;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
