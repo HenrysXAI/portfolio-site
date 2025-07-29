@@ -37,4 +37,4 @@ def send():
         flash('Message sent successfully!', 'success')
     except Exception as e:
         print(f"Error: {e}")
-        flash('Failed to send me
+        flash('Failed to send message. Please try again.')
