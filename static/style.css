@@ -1,40 +1,75 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  line-height: 1.6;
 }
 
 header {
-  background-color: #333;
-  color: white;
+  background-color: #1a1a1a;
+  color: #00ffcc;
   padding: 40px 20px;
   text-align: center;
+  border-bottom: 1px solid #333;
+  text-shadow: 0 0 3px #00ffcc;
 }
 
 section {
   max-width: 700px;
-  margin: auto;
+  margin: 50px auto;
   padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
 }
 
-form input, form textarea {
+h2 {
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+  color: #00ffcc;
+}
+
+form input,
+form textarea {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
+  padding: 12px;
+  margin: 12px 0;
+  background-color: #0f0f0f;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #00ffcc;
+  box-shadow: 0 0 5px #00ffcc;
 }
 
 form button {
-  background-color: #333;
-  color: white;
+  background-color: #00ffcc;
+  color: #0f0f0f;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+}
+
+form button:hover {
+  background-color: #00e6b3;
 }
 
 .success {
-  color: green;
+  color: #00ff99;
+  font-weight: bold;
+}
+
+.error {
+  color: #ff4d4d;
   font-weight: bold;
 }
