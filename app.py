@@ -1,17 +1,17 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_mail import Mail, Message
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = 'your_secret_key'  # Needed for flashing messages
 
-# Email Configuration (Gmail)
+# Email config
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME']
+app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')  # Set in Render
+app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')  # Set in Render
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('EMAIL_USER')
 
 mail = Mail(app)
 
@@ -21,20 +21,17 @@ def index():
 
 @app.route('/send', methods=['POST'])
 def send():
-    name = request.form.get('name')
-    email = request.form.get('email')
-    message = request.form.get('message')
-
-    if not name or not email or not message:
-        flash('All fields are required.', 'error')
-        return redirect('/')
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
 
     try:
-        msg = Message("New Contact Form Submission",
-                      recipients=[app.config['MAIL_USERNAME']])
-        msg.body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+        msg = Message(f'New message from {name}', recipients=[app.config['MAIL_USERNAME']])
+        msg.body = f"From: {name} <{email}>\n\n{message}"
         mail.send(msg)
         flash('Message sent successfully!', 'success')
     except Exception as e:
-        print(f"Error: {e}")
-        flash('Failed to send message. Please try again.')
+        print(str(e))
+        flash('Failed to send message.', 'error')
+
+    return redirect(url_for('index'))
